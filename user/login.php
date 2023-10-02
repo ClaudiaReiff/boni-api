@@ -13,7 +13,7 @@ $result = $connection->query($loginQuery);
 if($result->num_rows > 0){
     $userRecord = array();
     while($rowFound = $result->fetch_assoc()){
-        $userRecord = $rowFound;
+        $userRecord[] = $rowFound;
     }
     echo json_encode(array("success"=>true, "userData" => $userRecord[0]));
 }
