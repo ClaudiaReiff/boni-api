@@ -1,7 +1,7 @@
 <?php
-$serverHost = "localhost";
+$servername = "localhost";
 $user = "root";
 $password = "";
 $database = "boni_app";
 
-$connection = new mysqli($serverHost, $user, $password, $database);
+$connection = new mysqli($servername, $user, $password, $database);
