@@ -10,10 +10,24 @@ $createUserQuery =
     "INSERT INTO user SET name = '$userName', surname = '$userSurname', 
     email = '$userEmail', password = '$userPassword'";
     
-$result = $connection->query($createUserQuery);
+$createUserResult = $connection->query($createUserQuery);
 
-if($result){
-    echo json_encode(array("success"=>true));
+if($createUserResult){
+
+    //Get new user created
+    $userQuery = "SELECT * FROM user WHERE email = '$userEmail'";
+    $getUserResult = $connection->query($userQuery);
+
+    if($getUserResult->num_rows > 0){
+        $userRecord = array();
+        while($rowFound = $getUserResult->fetch_assoc()){
+            $userRecord[] = $rowFound;
+        }
+        echo json_encode(array("success"=>true, "userData" => $userRecord[0]));
+    }
+    else {
+        echo json_encode(array("success"=>false));
+    }
 }
 else{
     echo json_encode(array("success"=>false));
