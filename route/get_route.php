@@ -3,7 +3,7 @@ include '../connection.php';
 
 $routeId = $_POST['id'];
 
-$routeQuery = "SELECT * FROM user WHERE id = '$routeId'";
+$routeQuery = "SELECT * FROM route WHERE id = '$routeId'";
 $result = $connection->query($routeQuery);
 
 //route found
