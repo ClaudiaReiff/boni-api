@@ -6,26 +6,29 @@ $userSurname = $_POST['surname'];
 $userEmail = $_POST['email'];
 $userPassword = md5($_POST['password']);
 
-$createUserQuery = 
-    "INSERT INTO user SET name = '$userName', surname = '$userSurname', 
-    email = '$userEmail', password = '$userPassword'";
-    
-$createUserResult = $connection->query($createUserQuery);
+$query = 
+    "INSERT INTO user SET name = :userName, surname = :userSurname, 
+    email = :userEmail, password = :userPassword";
 
-if($createUserResult){
+$insertStmt = $pdo->prepare($query);
 
-    //Get new user created
-    $userQuery = "SELECT * FROM user WHERE email = '$userEmail'";
-    $getUserResult = $connection->query($userQuery);
+$insertStmt->bindParam(':userName', $userName);
+$insertStmt->bindParam(':userSurname', $userSurname);
+$insertStmt->bindParam(':userEmail', $userEmail);
+$insertStmt->bindParam(':userPassword', $userPassword);
 
-    if($getUserResult->num_rows > 0){
-        $userRecord = array();
-        while($rowFound = $getUserResult->fetch_assoc()){
-            $userRecord[] = $rowFound;
-        }
-        echo json_encode(array("success"=>true, "userData" => $userRecord[0]));
-    }
-    else {
+$insertStmt->execute();
+
+if($insertStmt->rowCount() > 0){
+    $userQuery = "SELECT * FROM user WHERE email = ':userEmail'";
+    $selectStmt = $pdo->prepare($userQuery);
+    $selectStmt->bindParam(':userEmail', $userEmail);
+    $selectStmt->execute();
+    $getUserResult = $selectStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if(count($getUserResult) > 0){
+        echo json_encode(array("success"=>true, "userData" => $getUserResult[0]));
+    } else {
         echo json_encode(array("success"=>false));
     }
 }

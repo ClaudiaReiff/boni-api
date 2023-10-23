@@ -3,19 +3,19 @@ include '../connection.php';
 
 $trailId = $_POST['id'];
 
-$trailQuery = "SELECT * FROM trail AS trl 
-               JOIN checkpoint AS cp ON cp.trail_id = trl.id WHERE trl.id = '$trailId'";
+$query = "SELECT * FROM trail AS trl 
+          JOIN checkpoint AS cp ON cp.trail_id = trl.id 
+          WHERE trl.id = :trailId";
 
-$result = $connection->query($trailQuery);
 
-$stmt = $pdo->prepare($trailQuery);
+$stmt = $pdo->prepare($query);
+$stmt->bindParam(':trailId', $trailId);
 $stmt->execute();
-
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $trailData = array(
     "id" => $results[0]['id'],
-    "name" => $results[0]['name'],
+    "title" => $results[0]['title'],
     "length" => $results[0]['length'],
     "duration" => $results[0]['duration'],
     "description" => $results[0]['description'],
@@ -26,10 +26,10 @@ $trailData = array(
 foreach ($results as $row) {
     $checkpoint = array(
         "id" => $row['id'],
-        "longitude" => $row['longitude'],
+        "name" => $row['name'],
         "latitude" => $row['latitude'],
-        "trailId" => $row['trailId'],
-        "checkedIn" => $row['checkedIn']
+        "longitude" => $row['longitude'],
+        "trailId" => $row['trail_id'],
     );
 
     $trailData["checkpoints"][] = $checkpoint;
