@@ -1,4 +1,13 @@
 <?php
+/**
+ * Insert user data into the database and return a JSON response.
+ *
+ * @param string $name The user's name.
+ * @param string $surname The user's surname.
+ * @param string $email The user's email.
+ * @param string $password The user's password.
+ * @return void
+ */
 include '../connection.php';
 
 // Get user data from the POST request

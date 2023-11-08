@@ -1,4 +1,10 @@
 <?php
+/**
+ * Check if the given email exists in the database.
+ *
+ * @param string $email The user's email.
+ * @return void
+ */
 include '../connection.php';
 
 // Get the user email from the POST request

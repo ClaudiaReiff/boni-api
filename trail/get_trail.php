@@ -1,4 +1,10 @@
 <?php
+/**
+ * Fetches trail data and associated checkpoints based on the trail ID.
+ *
+ * @param string $trailId The ID of the trail.
+ * @return string The JSON-encoded response containing trail data and checkpoints.
+ */
 include '../connection.php';
 
 // Get the trail ID from the POST request

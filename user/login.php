@@ -1,4 +1,11 @@
 <?php
+/**
+ * Perform user login and return user data if successful.
+ *
+ * @param string $email The user's email address.
+ * @param string $password The user's password.
+ * @return string The JSON-encoded response indicating the success status and user data, if login was successful.
+ */
 include '../connection.php';
 
 // Get the user email and password from the POST request

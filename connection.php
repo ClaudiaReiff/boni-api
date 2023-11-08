@@ -1,4 +1,14 @@
 <?php
+/**
+ * Establishes a new PDO connection to the database.
+ *
+ * @param string $servername The server name.
+ * @param string $username The database username.
+ * @param string $password The database password.
+ * @param string $database The database name.
+ * @return PDO The PDO instance for the database connection.
+ * @throws PDOException If there is an error connecting to the database.
+ */
 
 // Set the database connection details
 $servername = "localhost";
