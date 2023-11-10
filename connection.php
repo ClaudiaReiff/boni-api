@@ -11,10 +11,10 @@
  */
 
 // Set the database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "boni_app";
+$servername = "mysql80f.ssl-net.net";
+$username = "h46u191";
+$password = "toolmaster";
+$database = "h46u191_boni";
 
 try {
     // Create a new PDO instance for the database connection
