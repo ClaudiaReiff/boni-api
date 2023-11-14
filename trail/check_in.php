@@ -1,12 +1,12 @@
 <?php
 include '../connection.php';
-
 // Get the trail and user ID from the POST request
-$trailId = $_POST['trailId'];
-$userId = $_POST['userId'];
 
+$request = json_decode(file_get_contents("php://input"));
+$trailId = $request->trailId;
+$userId = $request->userId;
 // Prepare the query for checking user in
-$query = "INSERT INTO user_trails (trail_id, user_id, hiking_date, checked_points) VALUES (:trailId, :userId, CURDATE(), 1)";
+$query = "INSERT INTO user_trails SET trail_id = :trailId, user_id = :userId, hiking_date = CURDATE(), checked_points = 1";
 $insertStmt = $pdo->prepare($query);
 
 // Bind the parameters to the prepared statement
@@ -20,7 +20,8 @@ $insertStmt->execute();
 if($insertStmt->rowCount() > 0){
     // Return a JSON response with success true
     echo json_encode(array("success"=>true));
-} else{
+}
+else{
     // Return a JSON response with success false
     echo json_encode(array("success"=>false));
 }
